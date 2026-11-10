@@ -1,0 +1,13 @@
+{
+  "name": "city-brawl",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "City Brawl real-time multiplayer fighting game server",
+  "scripts": {
+    "server": "node server.mjs"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}

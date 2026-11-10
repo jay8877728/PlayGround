@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#090d12" />
+  <title>City Brawl — Afterdark</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main id="game-shell">
+    <canvas id="scene" aria-label="3D city arena"></canvas>
+    <div class="grain"></div>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="City Brawl home"><span class="brand-mark">CB</span><span>CITY<span class="brand-light">BRAWL</span></span></a>
+      <div class="season-pill"><span class="live-dot"></span> SEASON 04 <b>·</b> AFTERDARK</div>
+      <div class="top-actions"><button class="icon-btn" id="sound-toggle" aria-label="Toggle sound">♫</button><button class="profile"><span class="avatar-mini">K</span><span class="profile-name">KAI_ROGUE <small>LVL 24</small></span><span class="chevron">⌄</span></button></div>
+    </header>
+    <section class="hud-left">
+      <div class="eyebrow"><span class="eyebrow-line"></span> THE UNDERGROUND FIGHT CIRCUIT</div>
+      <h1>OWN THE<br><span class="stroke-text">NIGHT.</span></h1>
+      <p class="hero-copy">No rules. No backup. Just you and the city.<br>Step into the fight.</p>
+      <div class="rank-card"><div class="rank-icon">✦</div><div><span class="micro-label">CURRENT RANK</span><strong>GOLD II <i>↗</i></strong><div class="rank-progress"><span></span></div><small>1,240 / 1,500 RP <b>·</b> 3 wins to promotion</small></div><span class="rank-sigil">Ⅱ</span></div>
+      <div class="stats-strip"><div><b>18</b><span>WINS</span></div><i></i><div><b>1.8<span class="decimal">K</span></b><span>K/D RATIO</span></div><i></i><div><b>#2,481</b><span>GLOBAL</span></div></div>
+    </section>
+    <section class="hud-right">
+      <div class="arena-label"><span class="pin">⌖</span><div><span class="micro-label">CURRENT ARENA</span><strong>NEON DISTRICT</strong><small>SHINJUKU · 02:14 AM</small></div><span class="weather">☾ <small>12°</small></span></div>
+      <div class="fighter-card"><div class="fighter-top"><span class="micro-label">YOUR FIGHTER</span><button class="text-action" id="fighter-cycle">CUSTOMIZE <span>↗</span></button></div><div class="fighter-name" id="fighter-name">THE PHANTOM</div><div class="fighter-meta"><span id="fighter-style">COUNTER STRIKER</span><span class="dot-sep">·</span><span id="fighter-outfit">NIGHT OPS</span></div><div class="fighter-select"><button class="round-arrow" id="fighter-prev">‹</button><div class="fighter-dots"><span class="selected"></span><span></span><span></span><span></span></div><button class="round-arrow" id="fighter-next">›</button></div></div>
+    </section>
+    <section class="bottom-panel">
+      <div class="mode-wrap"><span class="micro-label">SELECT YOUR FIGHT</span><div class="mode-list" id="mode-list"><button class="mode-card active" data-mode="1v1"><span class="mode-icon">◉</span><span><b>1v1</b><small>DUEL</small></span><span class="mode-check">✓</span></button><button class="mode-card" data-mode="2v2"><span class="mode-icon">◉◉</span><span><b>2v2</b><small>TAG TEAM</small></span><span class="mode-check">✓</span></button><button class="mode-card" data-mode="5v5"><span class="mode-icon">◉◉◉</span><span><b>5v5</b><small>STREET WAR</small></span><span class="mode-check">✓</span></button></div></div>
+      <div class="queue-wrap"><button id="play-button" class="play-button"><span class="play-icon">▶</span><span><b>FIND A MATCH</b><small>RANKED · <em id="queue-mode">1V1 DUEL</em></small></span><span class="play-arrow">↗</span></button><div class="queue-sub"><button class="sub-action" id="private-button"><span>▣</span> PRIVATE ROOM</button><i></i><button class="sub-action" id="training-button"><span>◎</span> TRAINING</button></div><div class="connection" id="connection-status"><span class="connection-dot"></span><span>CONNECTING TO CITY NETWORK</span><b>—</b></div></div>
+    </section>
+    <div class="match-overlay hidden" id="match-overlay"><div class="match-box"><button class="close-modal" id="close-match">×</button><span class="eyebrow"><span class="eyebrow-line"></span> PRIVATE LOBBY</span><h2 id="match-title">CREATE A ROOM</h2><p id="match-description">Invite your crew and settle it on the streets.</p><div id="room-code-wrap" class="room-code-wrap hidden"><span>YOUR ROOM CODE</span><strong id="room-code">------</strong><button id="copy-code">COPY</button></div><div id="join-room-wrap" class="join-room-wrap"><input id="room-input" maxlength="6" placeholder="ENTER ROOM CODE" autocomplete="off"><button id="join-room">JOIN ROOM ↗</button></div><div id="lobby-status" class="lobby-status">Choose a mode from the arena screen first.</div></div></div>
+    <div class="toast" id="toast"></div>
+    <footer><span>© 2025 CITY BRAWL</span><span class="footer-center"><span class="live-dot"></span> CITY NETWORK <b>ONLINE</b></span><button id="leaderboard-button">LEADERBOARD <span>↗</span></button></footer>
+    <div class="fight-ui hidden" id="fight-ui">
+      <div class="fight-top"><div class="combatant"><div class="combatant-label"><span>YOU</span><b id="you-health-text">100</b></div><div class="health-track"><span id="you-health"></span></div><div class="stamina-track"><span id="you-stamina"></span></div></div><div class="round-info"><span id="round-mode">RANKED DUEL</span><strong id="fight-timer">03:00</strong><small id="room-label">NEON DISTRICT</small></div><div class="combatant enemy"><div class="combatant-label"><span>RIVAL</span><b id="enemy-health-text">100</b></div><div class="health-track"><span id="enemy-health"></span></div><div class="stamina-track"><span id="enemy-stamina"></span></div></div></div>
+      <div class="fight-notice" id="fight-notice">FIGHT!</div>
+      <div class="mobile-controls"><div class="joystick" id="joystick"><div class="joy-knob" id="joy-knob"></div></div><div class="fight-buttons"><button class="fight-btn dodge-btn" data-action="dodge">DODGE</button><button class="fight-btn block-btn" data-action="block">BLOCK</button><button class="fight-btn punch-btn" data-action="punch">PUNCH</button><button class="fight-btn kick-btn" data-action="kick">KICK</button></div></div>
+      <button class="leave-fight" id="leave-fight">✕ LEAVE FIGHT</button>
+      <div class="desktop-hints">WASD MOVE <span>·</span> SPACE DODGE <span>·</span> J PUNCH <span>·</span> K KICK <span>·</span> L BLOCK</div>
+    </div>
+    <div class="center-modal hidden" id="training-modal"><div><button class="close-modal" id="close-training">×</button><span class="eyebrow"><span class="eyebrow-line"></span> PRACTICE MODE</span><h2>TRAINING GROUNDS</h2><p>Warm up your combos against a sparring partner. No rank points, no pressure.</p><button class="modal-primary" id="start-training">ENTER THE ARENA ↗</button></div></div>
+  </main>
+  <script type="module" src="./game.js"></script>
+</body>
+</html>
